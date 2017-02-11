@@ -13376,6 +13376,7 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
                                        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_nodes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_nodes</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">=</span> <span class="n">learning_rate</span>
         
+        <span class="c1">#### Set this to your implemented sigmoid function ####</span>
         <span class="c1"># Activation function is the sigmoid function</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">activation_function</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
     
@@ -13386,11 +13387,14 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
 
         <span class="c1">#### Implement the forward pass here ####</span>
         <span class="c1">### Forward pass ###</span>
+        <span class="c1"># TODO: Hidden layer</span>
         <span class="c1"># signals into hidden layer</span>
         <span class="n">hidden_inputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weights_input_to_hidden</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
         <span class="c1"># signals from hidden layer</span>
         <span class="n">hidden_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation_function</span><span class="p">(</span><span class="n">hidden_inputs</span><span class="p">)</span>
 
+
+        <span class="c1"># TODO: Output layer</span>
         <span class="c1"># signals into final output layer</span>
         <span class="n">final_inputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weights_hidden_to_output</span><span class="p">,</span> <span class="n">hidden_outputs</span><span class="p">)</span>
         <span class="c1"># signals from final output layer</span>
@@ -13399,15 +13403,18 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
         <span class="c1">#### Implement the backward pass here ####</span>
         <span class="c1">### Backward pass ###</span>
 
+        <span class="c1"># TODO: Output error</span>
         <span class="c1"># Output layer error is the difference between desired target and actual output.</span>
         <span class="c1"># So desired minus final output?</span>
         <span class="n">output_errors</span> <span class="o">=</span> <span class="n">targets</span> <span class="o">-</span> <span class="n">final_outputs</span>        
 
+        <span class="c1"># TODO: Backpropagated error</span>
         <span class="c1"># errors propagated to the hidden layer</span>
         <span class="n">hidden_errors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">output_errors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights_hidden_to_output</span><span class="p">)</span>
         <span class="c1"># hidden layer gradients</span>
         <span class="n">hidden_grad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">output_errors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights_hidden_to_output</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">hidden_outputs</span> <span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">hidden_outputs</span><span class="p">)</span> 
            
+        <span class="c1"># TODO: Update the weights</span>
         <span class="c1"># update hidden-to-output weights with gradient descent step</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weights_hidden_to_output</span> <span class="o">+=</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">output_errors</span><span class="p">,</span> <span class="n">hidden_outputs</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr</span>
         <span class="c1"># update input-to-hidden weights with gradient descent step</span>
@@ -13419,11 +13426,13 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
         <span class="n">inputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">inputs_list</span><span class="p">,</span> <span class="n">ndmin</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
        
         <span class="c1">#### Implement the forward pass here ####</span>
+        <span class="c1"># TODO: Hidden layer</span>
         <span class="c1"># signals into hidden layer</span>
         <span class="n">hidden_inputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weights_input_to_hidden</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
         <span class="c1"># signals from hidden layer</span>
         <span class="n">hidden_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation_function</span><span class="p">(</span><span class="n">hidden_inputs</span><span class="p">)</span>
        
+        <span class="c1"># TODO: Output layer</span>
         <span class="c1"># signals into final output layer</span>
         <span class="n">final_inputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weights_hidden_to_output</span><span class="p">,</span> <span class="n">hidden_outputs</span><span class="p">)</span>
         <span class="c1"># signals from final output layer</span>
